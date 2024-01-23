@@ -28,6 +28,9 @@ public class Account {
     @Column
     private double balance;
 
+    @Column
+    private boolean isActive;
+
     public int getId() {
         return id;
     }
@@ -82,5 +85,13 @@ public class Account {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean active) {
+        isActive = active;
     }
 }
