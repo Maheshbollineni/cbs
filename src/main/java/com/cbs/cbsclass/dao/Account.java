@@ -1,6 +1,8 @@
 package com.cbs.cbsclass.dao;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 public class Account {
@@ -31,6 +33,26 @@ public class Account {
     @Column
     private boolean isActive;
 
+    @Column
+    @Getter @Setter private String nominee1;
+
+    @Column
+    @Getter @Setter private String nominee2;
+
+    @Column
+    @Getter @Setter private String upiid;
+
+    @Column
+    @Getter @Setter private String category;
+
+    @Column
+    @Getter @Setter private long debitcardno;
+
+    @Column
+    @Getter @Setter private long creditcardno;
+
+    @Column
+    @Getter @Setter private boolean enablednetbanking;
     public int getId() {
         return id;
     }

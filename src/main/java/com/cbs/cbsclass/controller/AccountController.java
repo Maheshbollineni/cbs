@@ -3,7 +3,6 @@ package com.cbs.cbsclass.controller;
 
 import com.cbs.cbsclass.dao.Account;
 import com.cbs.cbsclass.service.AccountService;
-import com.cbs.cbsclass.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,23 +15,28 @@ public class AccountController {
     }
 
     @GetMapping("/getBalance")
-    public double getbal(@RequestParam String cid){
+    public double getbal(@RequestBody String cid){
         return service.getBalance(cid);
     }
 
     @DeleteMapping("/close")
-    public void delete(@RequestParam String id){
+    public void delete(@RequestBody String id){
         service.delete(id);
     }
 
     @PatchMapping("/deposit")
-    public String deposit(@RequestParam String accno,@RequestParam double amt){
-        return service.deposit(accno,amt);
+    public String deposit(@RequestBody Transactions tx){
+        return service.deposit(tx.accno,tx.amt);
     }
 
     @PatchMapping("/withdraw")
-    public String withdraw(@RequestParam String accno,@RequestParam double amt){
-        return service.withdraw(accno,amt);
+    public String withdraw(@RequestBody Transactions tx){
+        return service.withdraw(tx.accno,tx.amt);
     }
 
+}
+
+class Transactions{
+    String accno;
+    double amt;
 }
