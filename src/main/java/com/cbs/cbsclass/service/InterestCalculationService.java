@@ -35,7 +35,7 @@ public class InterestCalculationService {
         }
     }
 
-    private static void calcInterest(Account acc) {
+    public static void calcInterest(Account acc) {
         if(!acc.isActive()) return;
         double principle_sum = 0;
         LocalDate currentDate = LocalDate.now();
@@ -52,6 +52,28 @@ public class InterestCalculationService {
             quarterStartDate.plusDays(1);
         }
         double interestAmount = (principle_sum * 2) / (4*100);
+        Transactions transaction = new Transactions();
+        transaction.setInterestAmount(interestAmount);
+        transRepo.save(transaction);
+    }
+    public static void calcInterestDaily(Account acc) {
+        if(!acc.isActive()) return;
+        double principle_sum = 0;
+        double interestAmount = 0;
+        LocalDate currentDate = LocalDate.now();
+        LocalDate quarterStartDate = currentDate.minusMonths(3);
+        while(!quarterStartDate.equals(currentDate)){
+            List<Transactions> allTransactions = transRepo.findByDate(quarterStartDate,acc.getAccountno());
+            if(allTransactions.size()>0){
+                for(Transactions tx: allTransactions){
+                    if(tx != null){
+                        principle_sum += tx.getBalanceAmount();
+                        interestAmount += (principle_sum * 2) / (4*100);
+                    }
+                }
+            }
+            quarterStartDate.plusDays(1);
+        }
         Transactions transaction = new Transactions();
         transaction.setInterestAmount(interestAmount);
         transRepo.save(transaction);
