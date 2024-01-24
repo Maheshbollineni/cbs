@@ -45,7 +45,7 @@ public class InterestCalculationService {
             if(allTransactions.size()>0){
                 for(Transactions tx: allTransactions){
                     if(tx != null){
-                        temp_principle_sum += tx.getTxAmount();
+                        principle_sum += tx.getBalanceAmount();
                     }
                 }
             }
