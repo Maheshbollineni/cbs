@@ -67,8 +67,8 @@ public class InterestCalculationService {
             if(allTransactions.size()>0){
                 for(Transactions tx: allTransactions){
                     if(tx != null){
-                        principle_sum += tx.getBalanceAmount();
-                        interestAmount += (principle_sum * 2) / (4*100);
+                        principle_sum = tx.getBalanceAmount();
+                        interestAmount += (principle_sum * 2) / (36500);
                     }
                 }
             }
