@@ -1,6 +1,4 @@
 package com.cbs.cbsclass.controller;
-
-
 import com.cbs.cbsclass.dao.Customer;
 import com.cbs.cbsclass.dao.Employee;
 import com.cbs.cbsclass.service.AccountService;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-
 public class EmployeeController {
         @Autowired
         EmployeeService service;

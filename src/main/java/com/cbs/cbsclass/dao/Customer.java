@@ -11,7 +11,6 @@ import java.util.Date;
 
 public class Customer {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter @Setter  private int id;

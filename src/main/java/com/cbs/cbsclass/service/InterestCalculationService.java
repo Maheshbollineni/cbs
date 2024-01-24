@@ -1,7 +1,7 @@
 package com.cbs.cbsclass.service;
 
 import com.cbs.cbsclass.dao.Account;
-import com.cbs.cbsclass.dao.Transactions;
+import com.cbs.cbsclass.dao.Transaction;
 import com.cbs.cbsclass.repository.AccountRepo;
 import com.cbs.cbsclass.repository.TransactionsRepository;
 
@@ -41,19 +41,19 @@ public class InterestCalculationService {
         LocalDate currentDate = LocalDate.now();
         LocalDate quarterStartDate = currentDate.minusMonths(3);
         while(!quarterStartDate.equals(currentDate)){
-            List<Transactions> allTransactions = transRepo.findByDate(quarterStartDate,acc.getAccountno());
+            List<Transaction> allTransactions = transRepo.findByDate(quarterStartDate,acc.getAccountno());
             if(allTransactions.size()>0){
-                for(Transactions tx: allTransactions){
+                for(Transaction tx: allTransactions){
                     if(tx != null){
-                        principle_sum += tx.getBalanceAmount();
+                        principle_sum += tx.getBalance();
                     }
                 }
             }
             quarterStartDate.plusDays(1);
         }
         double interestAmount = (principle_sum * 2) / (4*100);
-        Transactions transaction = new Transactions();
-        transaction.setInterestAmount(interestAmount);
+        Transaction transaction = new Transaction();
+        transaction.setIntrestamount(interestAmount);
         transRepo.save(transaction);
     }
     public static void calcInterestDaily(Account acc) {
@@ -63,19 +63,19 @@ public class InterestCalculationService {
         LocalDate currentDate = LocalDate.now();
         LocalDate quarterStartDate = currentDate.minusMonths(3);
         while(!quarterStartDate.equals(currentDate)){
-            List<Transactions> allTransactions = transRepo.findByDate(quarterStartDate,acc.getAccountno());
+            List<Transaction> allTransactions = transRepo.findByDate(quarterStartDate,acc.getAccountno());
             if(allTransactions.size()>0){
-                for(Transactions tx: allTransactions){
+                for(Transaction tx: allTransactions){
                     if(tx != null){
-                        principle_sum = tx.getBalanceAmount();
+                        principle_sum = tx.getBalance();
                         interestAmount += (principle_sum * 2) / (36500);
                     }
                 }
             }
             quarterStartDate.plusDays(1);
         }
-        Transactions transaction = new Transactions();
-        transaction.setInterestAmount(interestAmount);
+        Transaction transaction = new Transaction();
+        transaction.setIntrestamount(interestAmount);
         transRepo.save(transaction);
     }
 }

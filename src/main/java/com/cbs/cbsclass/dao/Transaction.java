@@ -36,7 +36,7 @@ public class Transaction {
     private String tx_status;
 
     @Column
-    private int intrestamount;
+    private double intrestamount;
 
     public int getId() {
         return id;
@@ -118,11 +118,11 @@ public class Transaction {
         this.tx_status = tx_status;
     }
 
-    public int getIntrestamount() {
+    public double getIntrestamount() {
         return intrestamount;
     }
 
-    public void setIntrestamount(int intrestamount) {
+    public void setIntrestamount(double intrestamount) {
         this.intrestamount = intrestamount;
     }
 }
