@@ -15,15 +15,15 @@ AccountRepo repo;
 
 
 
-        public double getBalance(String accno){
+        public double getBalance(long accno){
             Account ac= repo.getAccountbyAccID(accno);
             return ac.getBalance();
         }
-        public void delete(String accno){
+        public void delete(long accno){
             repo.deleteById(repo.getAccountbyAccID(accno).getId());
         }
 
-        public String deposit(String accno,double amt){
+        public String deposit(long accno,double amt){
             Account ac=repo.getAccountbyAccID(accno);
             double oldbal=ac.getBalance();
             ac.setBalance(oldbal+amt);
@@ -31,7 +31,7 @@ AccountRepo repo;
             return "A/C Balance: "+ac.getBalance();
         }
 
-        public String withdraw(String accno,double amt){
+        public String withdraw(long accno,double amt){
         Account ac=repo.getAccountbyAccID(accno);
         double oldbal=ac.getBalance();
         ac.setBalance(oldbal-amt);

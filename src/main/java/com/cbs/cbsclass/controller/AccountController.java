@@ -15,8 +15,8 @@ public class AccountController {
     }
 
     @GetMapping("/getBalance")
-    public double getbal(@RequestBody String cid){
-        return service.getBalance(cid);
+    public double getbal(@RequestBody long accno){
+        return service.getBalance(accno);
     }
 
     @DeleteMapping("/close")
@@ -37,6 +37,6 @@ public class AccountController {
 }
 
 class Transactions{
-    String accno;
+    long accno;
     double amt;
 }

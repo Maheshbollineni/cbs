@@ -6,13 +6,13 @@ import jakarta.persistence.*;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column
     private String tx_ref_no;
 
     @Column
-    private int accountno;
+    private long accountno;
 
     @Column
     private String type;
@@ -24,10 +24,10 @@ public class Transaction {
     private double balance;
 
     @Column
-    private int tx_from;
+    private long tx_from;
 
     @Column
-    private int tx_to;
+    private long tx_to;
 
     @Column
     private String tx_mode;
@@ -38,11 +38,11 @@ public class Transaction {
     @Column
     private double intrestamount;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -54,11 +54,11 @@ public class Transaction {
         this.tx_ref_no = tx_ref_no;
     }
 
-    public int getAccountno() {
+    public long getAccountno() {
         return accountno;
     }
 
-    public void setAccountno(int accountno) {
+    public void setAccountno(long accountno) {
         this.accountno = accountno;
     }
 
@@ -86,19 +86,19 @@ public class Transaction {
         this.balance = balance;
     }
 
-    public int getTx_from() {
+    public long getTx_from() {
         return tx_from;
     }
 
-    public void setTx_from(int tx_from) {
+    public void setTx_from(long tx_from) {
         this.tx_from = tx_from;
     }
 
-    public int getTx_to() {
+    public long getTx_to() {
         return tx_to;
     }
 
-    public void setTx_to(int tx_to) {
+    public void setTx_to(long tx_to) {
         this.tx_to = tx_to;
     }
 
