@@ -15,8 +15,7 @@ public class TransactionService {
     TransactionsRepository tr;
     @Autowired
     AccountRepo ar;
-//    @Autowired
-//    Transaction ntr;
+
     public Transaction add(Transaction t){
         return tr.save(t);
     }

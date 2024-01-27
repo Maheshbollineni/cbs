@@ -4,10 +4,12 @@ import com.cbs.cbsclass.dao.Transaction;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Repository
 public interface TransactionsRepository extends CrudRepository<Transaction,Integer> {
     public List<Transaction> findByAccountno(long accno);
 
