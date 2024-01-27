@@ -66,7 +66,7 @@ drop table if exists transaction;
 create table transaction(
 	id integer(10) PRIMARY KEY AUTO_INCREMENT,
     tx_ref_no varchar(16) NOT NULL,
-    accountno bigint unique,
+    accountno bigint,
     type varchar(20),
     amount float,
     balance float,
