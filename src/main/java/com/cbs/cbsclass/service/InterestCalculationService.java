@@ -4,6 +4,7 @@ import com.cbs.cbsclass.dao.Account;
 import com.cbs.cbsclass.dao.Transaction;
 import com.cbs.cbsclass.repository.AccountRepo;
 import com.cbs.cbsclass.repository.TransactionsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -11,7 +12,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class InterestCalculationService {
+
+    @Autowired
     private static AccountRepo repo;
+    @Autowired
     private static TransactionsRepository transRepo;
     public static String getFormattedDate(LocalDate formatDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -36,7 +40,7 @@ public class InterestCalculationService {
     }
 
     public static void calcInterest(Account acc) {
-        double principle_sum = 0;
+        float principle_sum = 0;
         LocalDate currentDate = LocalDate.now();
         LocalDate quarterStartDate = currentDate.minusMonths(3);
         List<Transaction> txRecords = transRepo.findIfInterestCredited(quarterStartDate,currentDate,acc.getAccountno());
@@ -53,14 +57,14 @@ public class InterestCalculationService {
             }
             quarterStartDate.plusDays(1);
         }
-        double interestAmount = (principle_sum * 2) / (4*100);
+        float interestAmount = (principle_sum * 2) / (4*100);
         Transaction transaction = new Transaction();
         transaction.setIntrestamount(interestAmount);
         transRepo.save(transaction);
     }
     public static void calcInterestDaily(Account acc) {
-        double interestAmount = 0;
-        double principle_sum = 0;
+        float interestAmount = 0;
+        float principle_sum = 0;
         LocalDate currentDate = LocalDate.now();
         LocalDate quarterStartDate = currentDate.minusMonths(3);
         List<Transaction> txRecords = transRepo.findIfInterestCredited(quarterStartDate,currentDate,acc.getAccountno());
@@ -84,8 +88,8 @@ public class InterestCalculationService {
     }
 
     public static void calcInterestForAccountClosure(Account acc){
-        double interestAmount = 0;
-        double principle_sum = 0;
+        float interestAmount = 0;
+        float principle_sum = 0;
         LocalDate currentDate = LocalDate.now();
         LocalDate quarterStartDate = currentDate.minusMonths(3);
         List<Transaction> txRecords = transRepo.findIfInterestCredited(quarterStartDate,currentDate,acc.getAccountno());

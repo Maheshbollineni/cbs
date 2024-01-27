@@ -3,15 +3,12 @@ package com.cbs.cbsclass.service;
 import com.cbs.cbsclass.dao.Account;
 import com.cbs.cbsclass.repository.AccountRepo;
 import com.cbs.cbsclass.repository.CustomerRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
-@Service
 public class AccountService {
 
-    @Autowired
 AccountRepo repo;
 
         public Account add(Account a){
@@ -24,9 +21,8 @@ AccountRepo repo;
             Account ac= repo.findByAccountno(accno);
             return ac.getBalance();
         }
-        public String delete(long accno){
+        public void delete(long accno){
             repo.deleteById(repo.findByAccountno(accno).getId());
-            return "Account closed";
         }
 
         public String deposit(long accno,float amt){
@@ -43,10 +39,6 @@ AccountRepo repo;
         ac.setBalance(oldbal-amt);
         repo.save(ac);
         return "A/C Balance: "+ac.getBalance();
-    }
-
-    public Account getAc(long accno){
-            return repo.findByAccountno(accno);
     }
     }
 

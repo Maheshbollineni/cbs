@@ -85,7 +85,7 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public double getBalance() {
+    public float getBalance() {
         return balance;
     }
 
