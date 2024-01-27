@@ -3,13 +3,15 @@ package com.cbs.cbsclass.service;
 import com.cbs.cbsclass.dao.Account;
 import com.cbs.cbsclass.repository.AccountRepo;
 import com.cbs.cbsclass.repository.CustomerRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 public class AccountService {
 
-AccountRepo repo;
+        @Autowired
+        AccountRepo repo;
 
         public Account add(Account a){
             Random random = new Random();
