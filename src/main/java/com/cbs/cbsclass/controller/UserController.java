@@ -8,42 +8,32 @@ import com.cbs.cbsclass.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 public class UserController {
 
     @Autowired
     UserService service;
 
-    @Autowired
-    AccountService as;
-
     @PostMapping("/register")
-    public String add(@RequestBody Register r){
-
-        Customer c=service.register(r.customer);
-        if(c!=null)
-            as.add(r.account);
-        return "Registered Successfully "+c.getCustid()+" "+r.account.getAccountno();
+    public String add(@RequestBody Customer c){
+        service.register(c);
+        return "Registered Successfully "+c.getCustid();
     }
 
     @PostMapping("/login")
-    public boolean login(@RequestBody Rbody rb){
-        return service.authenticate(rb.cid,rb.password);
+    public String login(@RequestBody Customer c){
+        boolean b= service.authenticate(c);
+        if(b){
+            return "Login Successful";
+        }
+        return "Error!Check your customer id and password";
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestParam String id){
-         service.delete(id);
+    public String delete(@RequestParam String cid){
+         return service.delete(cid);
     }
 }
 
-
-class Rbody{
-    String cid;
-    String password;
-}
-
-class Register{
-    Customer customer;
-    Account account;
-}

@@ -15,19 +15,20 @@ public class TransactionService {
     TransactionsRepository tr;
     @Autowired
     AccountRepo ar;
-    @Autowired
-    Transaction ntr;
+//    @Autowired
+//    Transaction ntr;
     public Transaction add(Transaction t){
         return tr.save(t);
     }
     public List<Transaction> getHistory(long accountno){
-        return tr.getHistory(accountno);
+        return tr.findByAccountno(accountno);
     }
 
-    public Transaction sendMoney(long accountno_r,long accountno_s,double amount) {
+    public Transaction sendMoney(long accountno_r,long accountno_s,float amount) {
 
-        Account rec = ar.getAccountbyAccID(accountno_r);
-        Account sd = ar.getAccountbyAccID(accountno_s);
+        Transaction ntr=new Transaction();
+        Account rec = ar.findByAccountno(accountno_r);
+        Account sd = ar.findByAccountno(accountno_s);
         if (rec == null){
             ntr.setAccountno(accountno_s);
             ntr.setAmount(amount);

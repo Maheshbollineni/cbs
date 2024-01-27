@@ -28,5 +28,5 @@ public class TransactionController {
 class Tbody {
     long accountno_s;
     long accountno_r;
-    double amount;
+    float amount;
 }

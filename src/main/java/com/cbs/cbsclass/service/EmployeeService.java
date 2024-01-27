@@ -17,22 +17,22 @@ public class EmployeeService {
     EmployeeRepo repo;
 
     public Employee register(Employee e){
-        if(repo.findbyempid(e.getEmpid())!=null){
+        if(repo.findByEmpid(e.getEmpid())!=null){
             return null;
         }
         e.setIsactive(true);
         return repo.save(e);
     }
 
-    public boolean authenticate(int eid,String password){
-        Employee e=repo.findbyempid(eid);
-        if(e!=null&&e.getPassword().equals(password))
+    public boolean authenticate(Employee emp){
+        Employee e=repo.findByEmpid(emp.getEmpid());
+        if(e!=null&&e.getPassword().equals(emp.getPassword()))
             return true;
         return false;
     }
 
     public void delete(int eid){
-        Employee e=repo.findbyempid(eid);
+        Employee e=repo.findByEmpid(eid);
         repo.deleteById(e.getId());
     }
 

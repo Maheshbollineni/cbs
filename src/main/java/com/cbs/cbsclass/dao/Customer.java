@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
-@Entity
+@Entity(name = "customer")
 
 public class Customer {
 
@@ -15,8 +17,8 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter @Setter  private int id;
 
-    @OneToOne(mappedBy = "account",cascade = CascadeType.ALL)
-    @Column
+
+    @Column(unique = true)
     @Getter @Setter private String custid;
 
 
@@ -41,6 +43,8 @@ public class Customer {
     @Column
     @Getter @Setter private String emailid;
 
+    @Column
+    @Getter @Setter private Date dob;
 
     @Column
     @Getter @Setter private String address;
@@ -51,9 +55,6 @@ public class Customer {
 
     @Column
     @Getter @Setter private String state;
-
-    @Column
-    @Getter @Setter private Date date;
 
     @Column
     @Getter @Setter private String city;
@@ -76,5 +77,16 @@ public class Customer {
     @Column
     @Getter @Setter private boolean isactive;
 
+    @Column
+    @Getter @Setter private LocalDateTime createdat;
+
+    @Column
+    @Getter @Setter private LocalDateTime updatedat;
+
+    @Column
+    @Getter @Setter private String createdby;
+
+    @Column
+    @Getter @Setter private String updatedby;
 
 }

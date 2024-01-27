@@ -1,8 +1,13 @@
 package com.cbs.cbsclass.dao;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.context.annotation.Bean;
 
-@Entity
+import java.time.LocalDateTime;
+
+@Entity(name = "transaction")
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,11 +23,13 @@ public class Transaction {
     private String type;
 
     @Column
-    private double amount;
+    private float amount;
 
     @Column
-    private double balance;
+    private float balance;
 
+    @Column
+    @Getter @Setter private LocalDateTime tx_at;
     @Column
     private long tx_from;
 
@@ -36,7 +43,7 @@ public class Transaction {
     private String tx_status;
 
     @Column
-    private double intrestamount;
+    private float interestamount;
 
     public long getId() {
         return id;
@@ -74,7 +81,7 @@ public class Transaction {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
@@ -82,7 +89,7 @@ public class Transaction {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 
@@ -119,10 +126,10 @@ public class Transaction {
     }
 
     public double getIntrestamount() {
-        return intrestamount;
+        return interestamount;
     }
 
-    public void setIntrestamount(double intrestamount) {
-        this.intrestamount = intrestamount;
+    public void setIntrestamount(float intrestamount) {
+        this.interestamount = intrestamount;
     }
 }

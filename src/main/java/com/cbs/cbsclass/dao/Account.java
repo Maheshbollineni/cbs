@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+import java.time.LocalDateTime;
+
+@Entity(name = "account")
 public class Account {
 
     @Id
@@ -12,8 +14,11 @@ public class Account {
     private int id;
 
 
+
     @Column
     private long accountno;
+
+
 
     @Column
     private String custid;
@@ -25,10 +30,12 @@ public class Account {
     private String branch;
 
     @Column
-    private String accounttype;
+    private String type;
 
     @Column
-    private double balance;
+    private float balance;
+
+
 
     @Column
     private boolean isActive;
@@ -53,6 +60,23 @@ public class Account {
 
     @Column
     @Getter @Setter private boolean enablednetbanking;
+
+    @Column
+    @Getter @Setter private LocalDateTime last_tx_date;
+
+    @Column
+    @Getter @Setter private LocalDateTime createdat;
+
+    @Column
+    @Getter @Setter private LocalDateTime closedat;
+
+    @Column
+    @Getter @Setter private String createdby;
+
+    @Column
+    @Getter @Setter private String closedby;
+
+
     public int getId() {
         return id;
     }
@@ -94,18 +118,18 @@ public class Account {
     }
 
     public String getAccounttype() {
-        return accounttype;
+        return type;
     }
 
     public void setAccounttype(String accounttype) {
-        this.accounttype = accounttype;
+        this.type = accounttype;
     }
 
-    public double getBalance() {
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 

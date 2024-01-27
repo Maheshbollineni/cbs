@@ -13,18 +13,18 @@ public class EmployeeController {
         @Autowired
         EmployeeService service;
 
-        @PostMapping("/register")
-        public Employee add(@RequestBody Employee e){
+//        @PostMapping("/regi")
+//        public Employee add(@RequestBody Employee e){
+//
+//            return service.register(e);
+//        }
 
-            return service.register(e);
+        @PostMapping("/loginemp")
+        public boolean login(@RequestBody Employee emp){
+            return service.authenticate(emp);
         }
 
-        @PostMapping("/login")
-        public boolean login(@RequestBody Rbody1 rb){
-            return service.authenticate(rb.empid,rb.password);
-        }
-
-        @DeleteMapping("/delete")
+        @DeleteMapping("/deleteemp")
         public void delete(@RequestParam int eid){
             service.delete(eid);
         }
@@ -36,8 +36,3 @@ public class EmployeeController {
     }
 
 
-
-class Rbody1{
-    int empid;
-    String password;
-}
