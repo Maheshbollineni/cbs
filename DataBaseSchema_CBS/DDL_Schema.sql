@@ -2,6 +2,7 @@
 create database cbs;
 use cbs;
 
+
 -- customer table
 drop table if exists customer;
 create table customer (
@@ -11,7 +12,7 @@ password varchar(16),
 firstname varchar(50),
 middlename varchar(50),
 lastname varchar(50),
-mobileno integer(10) unique,
+mobileno varchar(10) unique,
 emailid varchar(50) unique,
 dob date,
 fathername varchar(150),
@@ -37,7 +38,7 @@ select * from customer;
 drop table if exists account;
 create table account (
 id integer(10) primary key auto_increment,
-accountno integer(16) unique,
+accountno bigint unique,
 custid varchar(10) ,
 ifsccode varchar(11),
 branch varchar(20),
@@ -65,13 +66,13 @@ drop table if exists transaction;
 create table transaction(
 	id integer(10) PRIMARY KEY AUTO_INCREMENT,
     tx_ref_no varchar(16) NOT NULL,
-    accountno integer(16) unique,
+    accountno bigint unique,
     type varchar(20),
     amount float,
     balance float,
     tx_at datetime,
-    tx_from integer(16),
-    tx_to integer(16),
+    tx_from bigint ,
+    tx_to bigint,
     tx_mode varchar(20),
     tx_status varchar(20),
     interestamount float,
@@ -90,7 +91,7 @@ password varchar(16),
 firstname varchar(50),
 middlename varchar(50),
 lastname varchar(50),
-mobileno integer(10) unique,
+mobileno varchar(10) unique,
 emailid varchar(50) unique,
 dob date,
 createdat datetime,
@@ -100,3 +101,4 @@ updatedby varchar(150),
 isactive boolean
 );
 create index idx_employee_empid on employee(empid);
+

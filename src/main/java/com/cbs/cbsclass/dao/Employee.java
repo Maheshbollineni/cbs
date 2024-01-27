@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
-@Entity
+@Entity(name = "employee")
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter @Setter private int id;
 
     @Column
@@ -43,6 +44,17 @@ public class Employee {
     @Column
     @Getter @Setter private boolean isactive;
 
+    @Column
+    @Getter @Setter private LocalDateTime createdat;
+
+    @Column
+    @Getter @Setter private LocalDateTime updatedat;
+
+    @Column
+    @Getter @Setter private String createdby;
+
+    @Column
+    @Getter @Setter private String updatedby;
 
 
 

@@ -5,35 +5,37 @@ import com.cbs.cbsclass.repository.AccountRepo;
 import com.cbs.cbsclass.repository.CustomerRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 public class AccountService {
 
 AccountRepo repo;
 
         public Account add(Account a){
+            Random random = new Random();
+            long randomNumber = random.nextLong() % 10000000000000000L;
+            a.setAccountno(Math.abs(randomNumber));
             return repo.save(a);
         }
-
-
-
         public double getBalance(long accno){
-            Account ac= repo.getAccountbyAccID(accno);
+            Account ac= repo.findByAccountno(accno);
             return ac.getBalance();
         }
         public void delete(long accno){
-            repo.deleteById(repo.getAccountbyAccID(accno).getId());
+            repo.deleteById(repo.findByAccountno(accno).getId());
         }
 
-        public String deposit(long accno,double amt){
-            Account ac=repo.getAccountbyAccID(accno);
-            double oldbal=ac.getBalance();
-            ac.setBalance(oldbal+amt);
+        public String deposit(long accno,float amt){
+            Account ac=repo.findByAccountno(accno);
+            float oldbal=ac.getBalance();
+            ac.setBalance((float) (oldbal+amt));
             repo.save(ac);
             return "A/C Balance: "+ac.getBalance();
         }
 
-        public String withdraw(long accno,double amt){
-        Account ac=repo.getAccountbyAccID(accno);
-        double oldbal=ac.getBalance();
+        public String withdraw(long accno,float amt){
+        Account ac=repo.findByAccountno(accno);
+        float oldbal=ac.getBalance();
         ac.setBalance(oldbal-amt);
         repo.save(ac);
         return "A/C Balance: "+ac.getBalance();
