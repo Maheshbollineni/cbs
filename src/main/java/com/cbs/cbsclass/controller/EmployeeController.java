@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
+@CrossOrigin(origins = "http://localhost:3000/")
 public class EmployeeController {
         @Autowired
         EmployeeService service;
@@ -19,15 +20,30 @@ public class EmployeeController {
 //
 //            return service.register(e);
 //        }
-
-        @PostMapping("/loginemp")
-        public String login(@RequestBody Employee emp){
-            return new Gson().toJson(service.authenticate(emp));
+        @GetMapping("/emp")
+        public Employee display(){
+            return new Employee();
+        }
+        @PostMapping("/empregister")
+        public String register(@RequestBody Employee emp){
+            emp = service.register(emp);
+            if (emp == null) return "Employee ID already registered";
+            return "Registered Successful";
+//            return new Gson().toJson(emp);
         }
 
-        @DeleteMapping("/deleteemp")
-        public void delete(@RequestParam int eid){
-            service.delete(eid);
+        @PostMapping("/emplogin")
+        public String login(@RequestBody Employee emp){
+            boolean bool = service.authenticate(emp);
+            if(bool){
+                return new Gson().toJson("Login Successful");
+            }
+            return new Gson().toJson("Error!Check your customer id and password");
+        }
+
+        @DeleteMapping("/empdlete")
+        public void delete(@RequestBody int empid){
+            service.delete(empid);
         }
 
         @PutMapping("/performTransaction")

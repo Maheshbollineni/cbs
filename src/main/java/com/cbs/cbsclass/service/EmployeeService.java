@@ -7,6 +7,8 @@ import com.cbs.cbsclass.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Service
@@ -15,10 +17,14 @@ public class EmployeeService {
     EmployeeRepo repo;
 
     public Employee register(Employee e){
+        System.out.println("entered register method "+e.getEmpid());
         if(repo.findByEmpid(e.getEmpid())!=null){
+            System.out.println("emp is already registered");
             return null;
         }
+        e.setCreatedat(LocalDateTime.now());
         e.setIsactive(true);
+        System.out.println("Set register states");
         return repo.save(e);
     }
 

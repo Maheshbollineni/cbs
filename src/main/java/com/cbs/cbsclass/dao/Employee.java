@@ -8,53 +8,55 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@Setter
+@Getter
 @Entity(name = "employee")
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter @Setter private int id;
+    private int id;
 
     @Column
-    @Getter @Setter private int empid;
+    private int empid;
 
     @Column
-    @Getter @Setter private String password;
+    private String password;
 
     @Column
-    @Getter @Setter private String firstname;
+    private String firstname;
 
     @Column
-    @Getter @Setter private String middlename;
-
-
-    @Column
-    @Getter @Setter private String lastname;
+    private String middlename;
 
 
     @Column
-    @Getter @Setter private String mobileno;
+    private String lastname;
+
 
     @Column
-    @Getter @Setter private String emailid;
+    private String mobileno;
 
     @Column
-    @Getter @Setter private Date dob;
+    private String emailid;
 
     @Column
-    @Getter @Setter private boolean isactive;
+    private Date dob;
 
     @Column
-    @Getter @Setter private LocalDateTime createdat;
+    private boolean isactive;
 
     @Column
-    @Getter @Setter private LocalDateTime updatedat;
+    private LocalDateTime createdat;
 
     @Column
-    @Getter @Setter private String createdby;
+    private LocalDateTime updatedat;
 
     @Column
-    @Getter @Setter private String updatedby;
+    private String createdby = "System";
+
+    @Column
+    private String updatedby;
 
 
 
