@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @RestController
-@CrossOrigin("origins = http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class UserController {
 
     @Autowired
