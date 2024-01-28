@@ -51,7 +51,7 @@ public class Employee {
     @Getter @Setter private LocalDateTime updatedat;
 
     @Column
-    @Getter @Setter private String createdby;
+    @Getter @Setter private String createdby = "System";
 
     @Column
     @Getter @Setter private String updatedby;
