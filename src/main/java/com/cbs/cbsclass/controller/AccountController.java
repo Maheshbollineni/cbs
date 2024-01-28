@@ -13,6 +13,11 @@ public class AccountController {
 
     @Autowired
     AccountService service;
+
+    @GetMapping("/")
+    public void display(){
+        System.out.println("inside display");
+    }
     @PostMapping("/openAC")
     public String add(@RequestBody Account acc){
         service.add(acc);

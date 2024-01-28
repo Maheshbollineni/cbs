@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class InterestCalculationService {
-
+/*
     @Autowired
     private static AccountRepo repo;
     @Autowired
@@ -43,7 +43,7 @@ public class InterestCalculationService {
         float principle_sum = 0;
         LocalDate currentDate = LocalDate.now();
         LocalDate quarterStartDate = currentDate.minusMonths(3);
-        List<Transaction> txRecords = transRepo.findIfInterestCredited(quarterStartDate,currentDate,acc.getAccountno());
+        List<Transaction> txRecords = transRepo.findIfInterestCredited(acc.getAccountno(),quarterStartDate,currentDate);
         if((!acc.isActive()) || (acc.getBalance() <= 3000) || (txRecords != null & txRecords.isEmpty())) return;
 
         while(!quarterStartDate.equals(currentDate)){
@@ -67,7 +67,7 @@ public class InterestCalculationService {
         float principle_sum = 0;
         LocalDate currentDate = LocalDate.now();
         LocalDate quarterStartDate = currentDate.minusMonths(3);
-        List<Transaction> txRecords = transRepo.findIfInterestCredited(quarterStartDate,currentDate,acc.getAccountno());
+        List<Transaction> txRecords = transRepo.findIfInterestCredited(acc.getAccountno(),quarterStartDate,currentDate);
         if((!acc.isActive()) || (acc.getBalance() <= 3000) || (txRecords != null & txRecords.isEmpty())) return;
 
         while(!quarterStartDate.equals(currentDate)){
@@ -92,7 +92,7 @@ public class InterestCalculationService {
         float principle_sum = 0;
         LocalDate currentDate = LocalDate.now();
         LocalDate quarterStartDate = currentDate.minusMonths(3);
-        List<Transaction> txRecords = transRepo.findIfInterestCredited(quarterStartDate,currentDate,acc.getAccountno());
+        List<Transaction> txRecords = transRepo.findIfInterestCredited(acc.getAccountno(),quarterStartDate,currentDate);
         if((!acc.isActive()) || (acc.getBalance() <= 3000) || (txRecords != null & txRecords.isEmpty())) return;
 
         while(!quarterStartDate.equals(currentDate)){
@@ -110,5 +110,5 @@ public class InterestCalculationService {
         Transaction transaction = new Transaction();
         transaction.setIntrestamount(interestAmount);
         transRepo.save(transaction);
-    }
+    }*/
 }
