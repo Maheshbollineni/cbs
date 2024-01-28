@@ -11,7 +11,7 @@ import java.time.YearMonth;
 import java.util.List;
 
 @RestController
-@CrossOrigin("origins = http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class TransactionController {
     @Autowired
     TransactionService ts;
