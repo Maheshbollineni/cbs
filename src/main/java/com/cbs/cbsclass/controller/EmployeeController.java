@@ -4,6 +4,7 @@ import com.cbs.cbsclass.dao.Employee;
 import com.cbs.cbsclass.service.AccountService;
 import com.cbs.cbsclass.service.EmployeeService;
 import com.cbs.cbsclass.service.UserService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +21,8 @@ public class EmployeeController {
 //        }
 
         @PostMapping("/loginemp")
-        public boolean login(@RequestBody Employee emp){
-            return service.authenticate(emp);
+        public String login(@RequestBody Employee emp){
+            return new Gson().toJson(service.authenticate(emp));
         }
 
         @DeleteMapping("/deleteemp")

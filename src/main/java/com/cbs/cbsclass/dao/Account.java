@@ -52,11 +52,11 @@ public class Account {
     @Column
     @Getter @Setter private String category;
 
-    @Column
-    @Getter @Setter private long debitcardno;
-
-    @Column
-    @Getter @Setter private long creditcardno;
+//    @Column
+//    @Getter @Setter private long debitcardno;
+//
+//    @Column
+//    @Getter @Setter private long creditcardno;
 
     @Column
     @Getter @Setter private boolean enablednetbanking;

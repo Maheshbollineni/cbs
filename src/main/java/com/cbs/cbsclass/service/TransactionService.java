@@ -30,7 +30,7 @@ public class TransactionService {
         Account rec = ar.findByAccountno(accountno_r);
         Account sd = ar.findByAccountno(accountno_s);
         Transaction ntr = new Transaction();
-        String transactionRefNo = UUID.randomUUID().toString();
+        String transactionRefNo = "mytransaction";
         LocalDateTime now = LocalDateTime.now();
         ntr.setType("Transfer");
         ntr.setTx_at(now);
@@ -43,11 +43,11 @@ public class TransactionService {
         if (sd==null||rec == null||sd.getBalance() < amount||!sd.isActive()||!rec.isActive()){
 
             if(sd!=null) ntr.setBalance(sd.getBalance());
-            if(sd==null) ntr.setTx_status("Failed,Incorrect Sender Account Number");
-            else if(!sd.isActive()) ntr.setTx_status("Failed,Sender Account InActive");
-            else if(rec == null) ntr.setTx_status("Failed,Incorrect Account Number");
-            else if(!rec.isActive()) ntr.setTx_status("Failed,Receiver Account InActive");
-            else if(sd.getBalance() < amount) ntr.setTx_status("Failed,Insufficent Balance");
+            if(sd==null) ntr.setTx_status("Incorrect Accno");
+            else if(!sd.isActive()) ntr.setTx_status("A/C inactive");
+            else if(rec == null) ntr.setTx_status("Incorrect Accno");
+            else if(!rec.isActive()) ntr.setTx_status("Receiver fail");
+            else if(sd.getBalance() < amount) ntr.setTx_status("Insufficent Bal");
             return add(ntr);
 
         }

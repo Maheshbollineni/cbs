@@ -3,6 +3,7 @@ package com.cbs.cbsclass.controller;
 
 import com.cbs.cbsclass.dao.Account;
 import com.cbs.cbsclass.service.AccountService;
+import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,28 +22,28 @@ public class AccountController {
     @PostMapping("/openAC")
     public String add(@RequestBody Account acc){
         service.add(acc);
-        return "Account created successfully :"+acc.getAccountno();
+        return new Gson().toJson("Account created successfully :"+acc.getAccountno());
     }
 
     @PostMapping("/getBalance")
-    public double getbal(@RequestBody Long accno){
-        return service.getBalance(accno);
+    public String getbal(@RequestBody Long accno){
+        return new Gson().toJson(service.getBalance(accno));
     }
 
     @DeleteMapping("/close")
     public String delete(@RequestBody Long accno){
-
-        return service.delete(accno);
+        return new Gson().toJson(service.delete(accno));
     }
 
     @PatchMapping("/deposit")
-    public String deposit(@RequestBody Transactions tx){
-        return service.deposit(tx.getAccno(), (float) tx.getAmt());
+    public String deposit(@RequestBody Transactions tx)
+    {
+        return new Gson().toJson(service.deposit(tx.getAccno(), (float) tx.getAmt()));
     }
 
     @PatchMapping("/withdraw")
     public String withdraw(@RequestBody Transactions tx){
-        return service.withdraw(tx.getAccno(), (float) tx.getAmt());
+        return new Gson().toJson(service.withdraw(tx.getAccno(), (float) tx.getAmt()));
     }
 
     @PostMapping("/getAccount")
