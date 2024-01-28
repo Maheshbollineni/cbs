@@ -8,7 +8,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,11 +28,18 @@ public class TransactionService {
         return tr.findByAccountno(accountno);
     }
 
+//    public List<Transaction> getStatement(int month){
+//        LocalDate curr = LocalDate.now();
+//        LocalDate startDate =   LocalDate.of(curr.getYear(),month,1);
+//        int lastDate = YearMonth.of(curr.getYear(),month).lengthOfMonth();
+//        LocalDate endDate = LocalDate.of(curr.getYear(),month,lastDate);
+//        return tr.findTransactionRangeDate(startDate,endDate);
+//    }
     public Transaction sendMoney(long accountno_r,long accountno_s,float amount) {
         Account rec = ar.findByAccountno(accountno_r);
         Account sd = ar.findByAccountno(accountno_s);
         Transaction ntr = new Transaction();
-        String transactionRefNo = "mytransaction";
+        String transactionRefNo = UUID.randomUUID().toString().substring(0,10);
         LocalDateTime now = LocalDateTime.now();
         ntr.setType("Transfer");
         ntr.setTx_at(now);
