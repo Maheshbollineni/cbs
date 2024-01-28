@@ -20,8 +20,19 @@ public class EmployeeController {
 //
 //            return service.register(e);
 //        }
+        @GetMapping("/emp")
+        public Employee display(){
+            return new Employee();
+        }
+        @PostMapping("/empregister")
+        public String register(@RequestBody Employee emp){
+            emp = service.register(emp);
+            if (emp == null) return "Employee ID already registered";
+            return "Registered Successful";
+//            return new Gson().toJson(emp);
+        }
 
-        @PostMapping("/loginemp")
+        @PostMapping("/emplogin")
         public String login(@RequestBody Employee emp){
             return new Gson().toJson(service.authenticate(emp));
         }
