@@ -2,6 +2,7 @@ package com.cbs.cbsclass.controller;
 
 
 import com.cbs.cbsclass.dao.Account;
+import com.cbs.cbsclass.dao.Customer;
 import com.cbs.cbsclass.service.AccountService;
 import com.google.gson.Gson;
 import lombok.Getter;
@@ -9,6 +10,10 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@CrossOrigin
 @RestController
 public class AccountController {
 
@@ -47,8 +52,14 @@ public class AccountController {
     }
 
     @PostMapping("/getAccount")
-    public Account getAc(@RequestBody Long accno)
-    {return service.getAc(accno);}
+    public String getAc(@RequestBody Customer c)
+    {
+        List<Account>as=service.getAc(c.getCustid());
+        List<Long> al=new ArrayList<>();
+        for(Account a:as){
+            al.add(a.getAccountno());
+        }
+        return new Gson().toJson(al);}
 }
 
 

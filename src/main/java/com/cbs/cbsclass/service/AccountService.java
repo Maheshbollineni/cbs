@@ -6,6 +6,8 @@ import com.cbs.cbsclass.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -45,8 +47,9 @@ AccountRepo repo;
         return "A/C Balance: "+ac.getBalance();
     }
 
-    public Account getAc(Long accno) {
-            return repo.findByAccountno(accno);
+    public List<Account> getAc(String custid) {
+
+             return repo.findByCustid(custid);
     }
 }
 
