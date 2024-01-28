@@ -34,12 +34,16 @@ public class EmployeeController {
 
         @PostMapping("/emplogin")
         public String login(@RequestBody Employee emp){
-            return new Gson().toJson(service.authenticate(emp));
+            boolean bool = service.authenticate(emp);
+            if(bool){
+                return new Gson().toJson("Login Successful");
+            }
+            return new Gson().toJson("Error!Check your customer id and password");
         }
 
-        @DeleteMapping("/deleteemp")
-        public void delete(@RequestParam int eid){
-            service.delete(eid);
+        @DeleteMapping("/empdlete")
+        public void delete(@RequestBody int empid){
+            service.delete(empid);
         }
 
         @PutMapping("/performTransaction")
