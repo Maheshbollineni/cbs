@@ -48,8 +48,8 @@ AccountRepo repo;
     }
 
     public List<Account> getAc(String custid) {
-
-             return repo.findByCustid(custid);
+        System.out.println("in service getAc() for custid: "+custid);
+         return repo.findByCustid(custid);
     }
 }
 
