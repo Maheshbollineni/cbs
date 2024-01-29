@@ -5,14 +5,18 @@ import com.cbs.cbsclass.dao.Transaction;
 import com.cbs.cbsclass.dao.TransferBody;
 import com.cbs.cbsclass.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TransactionController {
     @Autowired
     TransactionService ts;
@@ -30,7 +34,11 @@ public class TransactionController {
     }
 
     @GetMapping("/monthly")
-    public List<Transaction> getStatement(@RequestParam int month,@RequestParam int accountno){
-        return ts.getStatement(month,accountno);
+    public ResponseEntity<List<Transaction>> getStatement(@RequestParam String month, @RequestParam String accountno){
+        int mn=Integer.parseInt(month);
+        long acn=Long.parseLong(accountno);
+        List<Transaction> listTransactions = ts.getStatement(mn,acn);
+        System.out.println(listTransactions.toString());
+        return new ResponseEntity<>(listTransactions, HttpStatus.OK);
     }
 }
