@@ -34,10 +34,20 @@ public class TransactionService {
         int year=ld.getYear();
         return tr.findTransactionRangeDate(accountno,month,year);
     }
-    public String sendMoney(long accountno_r,long accountno_s,float amount) {
+    public String sendMoney(long accountno_s,long accountno_r,float amount) {
         Account rec = ar.findByAccountno(accountno_r);
         Account sd = ar.findByAccountno(accountno_s);
+        if (sd==null||rec == null||sd.getBalance() < amount||!sd.isActive()||!rec.isActive()){
+            if(sd==null) return "Incorrect Account number";
+            else if(!sd.isActive()) return "Your Account is inactive";
+            else if(rec == null) return "Incorrect Account number";
+            else if(!rec.isActive()) return "Receiver Account is inactive";
+            else if(sd.getBalance() < amount) return "Insufficent Balance in your account";
+        }
         Transaction ntr = new Transaction();
+        sd.setBalance(sd.getBalance() - amount);
+        rec.setBalance(rec.getBalance() + amount);
+        ntr.setTx_status("Success");
         String transactionRefNo = UUID.randomUUID().toString().substring(0,10);
         LocalDateTime now = LocalDateTime.now();
         ntr.setType("Transfer");
@@ -48,27 +58,10 @@ public class TransactionService {
         ntr.setAmount(amount);
         ntr.setTx_from(accountno_s);
         ntr.setTx_to(accountno_r);
-        if (sd==null||rec == null||sd.getBalance() < amount||!sd.isActive()||!rec.isActive()){
-
-            if(sd!=null) ntr.setBalance(sd.getBalance());
-            if(sd==null) ntr.setTx_status("Incorrect Accno");
-            else if(!sd.isActive()) ntr.setTx_status("A/C inactive");
-            else if(rec == null) ntr.setTx_status("Incorrect Accno");
-            else if(!rec.isActive()) ntr.setTx_status("Receiver fail");
-            else if(sd.getBalance() < amount) ntr.setTx_status("Insufficent Bal");
-
-
-        }
-        else {
-            sd.setBalance(sd.getBalance() - amount);
-            rec.setBalance(rec.getBalance() + amount);
-            ar.save(sd);
-            ar.save(rec);
-            ntr.setBalance(sd.getBalance());
-            ntr.setTx_status("Success");
-            add(ntr);
-        }
+        ar.save(sd);
+        ar.save(rec);
+        ntr.setBalance(sd.getBalance());
+        add(ntr);
         return "Transaction Status: "+ntr.getTx_status()+" transaction reference id"+ ntr.getTx_ref_no();
-
     }
 }
