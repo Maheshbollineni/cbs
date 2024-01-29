@@ -38,8 +38,8 @@ public class TransactionController {
         return ts.getStatement(month,accountno);
     }
 
-    @PostMapping("/calinterest")
-    public String calinterest(){
+    @PostMapping("/calcinterest")
+    public String calcinterest(){
         is.runInterestOnAllAccounts();
         return "Quaterly Interest has been added Successfully";
     }
