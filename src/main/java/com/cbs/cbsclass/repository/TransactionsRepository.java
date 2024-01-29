@@ -11,8 +11,9 @@ import java.util.List;
 
 @Repository
 public interface TransactionsRepository extends CrudRepository<Transaction,Integer> {
-    public List<Transaction> findByAccountno(long accno);
-
+     List<Transaction> findByAccountno(long accno);
+//     @Query("SELECT t FROM Transaction t WHERE t.tx_at BETWEEN :dateTime.isAfter(startDate) and :dateTime.isAfter(endDate)")
+//     List<Transaction> findTransactionRangeDate(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate);
 /*    @Query("SELECT t FROM transaction WHERE tx_at <= :currDate and tx_from = :tx_accno order by tx_at desc limit 1")
     List<Transaction> findByDate(@Param("currDate") LocalDate currDate, @Param("tx_accno") long accno);
 
