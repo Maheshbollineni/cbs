@@ -25,6 +25,7 @@ AccountRepo repo;
             Random random = new Random();
             long randomNumber = random.nextLong() % 10000000000000000L;
             a.setAccountno(Math.abs(randomNumber));
+            a.setIsActive(true);
             return repo.save(a);
         }
         public double getBalance(long accno){
