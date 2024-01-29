@@ -1,8 +1,10 @@
 package com.cbs.cbsclass.service;
 
 import com.cbs.cbsclass.dao.Account;
+import com.cbs.cbsclass.dao.Transaction;
 import com.cbs.cbsclass.repository.AccountRepo;
 import com.cbs.cbsclass.repository.CustomerRepo;
+import com.cbs.cbsclass.repository.TransactionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class AccountService {
 
     @Autowired
 AccountRepo repo;
+    @Autowired
+    InterestCalculationService ias;
+
 
         public Account add(Account a){
             Random random = new Random();
@@ -27,7 +32,10 @@ AccountRepo repo;
             return ac.getBalance();
         }
         public String delete(long accno){
-            repo.deleteById(repo.findByAccountno(accno).getId());
+            Account ac=repo.findByAccountno(repo.findByAccountno(accno).getId());
+            ias.calcInterestForAccountClosure(ac);
+            ac.setIsActive(false);
+            repo.save(ac);
             return "Account closed";
         }
 
