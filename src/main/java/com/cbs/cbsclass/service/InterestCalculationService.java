@@ -6,18 +6,18 @@ import com.cbs.cbsclass.repository.AccountRepo;
 import com.cbs.cbsclass.repository.TransactionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class InterestCalculationService {
-/*
-    @Autowired
+   @Autowired
     private static AccountRepo repo;
     @Autowired
     private static TransactionsRepository transRepo;
-    public static String getFormattedDate(LocalDate formatDate) {
+    public static String getFormattedDate(LocalDateTime formatDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = formatDate.format(formatter);
 //        System.out.println("Today's Date in IST format: " + formattedDate);
@@ -25,7 +25,7 @@ public class InterestCalculationService {
     }
 
     public static String getQuarterStartDate(){
-        LocalDate quarterStartDate = LocalDate.now(ZoneId.of("Asia/Kolkata")).minusDays(90);
+        LocalDateTime quarterStartDate = LocalDateTime.now(ZoneId.of("Asia/Kolkata")).minusDays(90);
         String formattedQuarterStartDate = getFormattedDate(quarterStartDate);
         System.out.println("Quarter start date:" + formattedQuarterStartDate);
         return formattedQuarterStartDate;
@@ -41,8 +41,8 @@ public class InterestCalculationService {
 
     public static void calcInterest(Account acc) {
         float principle_sum = 0;
-        LocalDate currentDate = LocalDate.now();
-        LocalDate quarterStartDate = currentDate.minusMonths(3);
+        LocalDateTime currentDate = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
+        LocalDateTime quarterStartDate = currentDate.minusMonths(3);
         List<Transaction> txRecords = transRepo.findIfInterestCredited(acc.getAccountno(),quarterStartDate,currentDate);
         if((!acc.isActive()) || (acc.getBalance() <= 3000) || (txRecords != null & txRecords.isEmpty())) return;
 
@@ -59,14 +59,14 @@ public class InterestCalculationService {
         }
         float interestAmount = (principle_sum * 2) / (4*100);
         Transaction transaction = new Transaction();
-        transaction.setIntrestamount(interestAmount);
+        transaction.setInterestamount(interestAmount);
         transRepo.save(transaction);
     }
     public static void calcInterestDaily(Account acc) {
         float interestAmount = 0;
         float principle_sum = 0;
-        LocalDate currentDate = LocalDate.now();
-        LocalDate quarterStartDate = currentDate.minusMonths(3);
+        LocalDateTime currentDate = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
+        LocalDateTime quarterStartDate = currentDate.minusMonths(3);
         List<Transaction> txRecords = transRepo.findIfInterestCredited(acc.getAccountno(),quarterStartDate,currentDate);
         if((!acc.isActive()) || (acc.getBalance() <= 3000) || (txRecords != null & txRecords.isEmpty())) return;
 
@@ -83,15 +83,15 @@ public class InterestCalculationService {
             quarterStartDate.plusDays(1);
         }
         Transaction transaction = new Transaction();
-        transaction.setIntrestamount(interestAmount);
+        transaction.setInterestamount(interestAmount);
         transRepo.save(transaction);
     }
 
     public static void calcInterestForAccountClosure(Account acc){
         float interestAmount = 0;
         float principle_sum = 0;
-        LocalDate currentDate = LocalDate.now();
-        LocalDate quarterStartDate = currentDate.minusMonths(3);
+        LocalDateTime currentDate = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
+        LocalDateTime quarterStartDate = currentDate.minusMonths(3);
         List<Transaction> txRecords = transRepo.findIfInterestCredited(acc.getAccountno(),quarterStartDate,currentDate);
         if((!acc.isActive()) || (acc.getBalance() <= 3000) || (txRecords != null & txRecords.isEmpty())) return;
 
@@ -108,7 +108,7 @@ public class InterestCalculationService {
             quarterStartDate.plusDays(1);
         }
         Transaction transaction = new Transaction();
-        transaction.setIntrestamount(interestAmount);
+        transaction.setInterestamount(interestAmount);
         transRepo.save(transaction);
-    }*/
+    }
 }
