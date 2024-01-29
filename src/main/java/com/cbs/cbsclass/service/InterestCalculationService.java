@@ -14,17 +14,17 @@ import java.util.List;
 
 public class InterestCalculationService {
    @Autowired
-    private static AccountRepo repo;
+    private AccountRepo repo;
     @Autowired
-    private static TransactionsRepository transRepo;
-    public static String getFormattedDate(LocalDateTime formatDate) {
+    private TransactionsRepository transRepo;
+    public String getFormattedDate(LocalDateTime formatDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = formatDate.format(formatter);
 //        System.out.println("Today's Date in IST format: " + formattedDate);
         return formattedDate;
     }
 
-    public static String getQuarterStartDate(){
+    public String getQuarterStartDate(){
         LocalDateTime quarterStartDate = LocalDateTime.now(ZoneId.of("Asia/Kolkata")).minusDays(90);
         String formattedQuarterStartDate = getFormattedDate(quarterStartDate);
         System.out.println("Quarter start date:" + formattedQuarterStartDate);
@@ -32,14 +32,14 @@ public class InterestCalculationService {
     }
 
 
-    public static void runInterestOnAllAccounts(){
+    public void runInterestOnAllAccounts(){
         List<Account> allAccounts = (List<Account>) repo.findAll();
         for(Account acc: allAccounts){
             calcInterest(acc);
         }
     }
 
-    public static void calcInterest(Account acc) {
+    public void calcInterest(Account acc) {
         float principle_sum = 0;
         LocalDateTime currentDate = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
         LocalDateTime quarterStartDate = currentDate.minusMonths(3);
@@ -62,7 +62,7 @@ public class InterestCalculationService {
         transaction.setInterestamount(interestAmount);
         transRepo.save(transaction);
     }
-    public static void calcInterestDaily(Account acc) {
+    public void calcInterestDaily(Account acc) {
         float interestAmount = 0;
         float principle_sum = 0;
         LocalDateTime currentDate = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
@@ -87,7 +87,7 @@ public class InterestCalculationService {
         transRepo.save(transaction);
     }
 
-    public static void calcInterestForAccountClosure(Account acc){
+    public void calcInterestForAccountClosure(Account acc){
         float interestAmount = 0;
         float principle_sum = 0;
         LocalDateTime currentDate = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
