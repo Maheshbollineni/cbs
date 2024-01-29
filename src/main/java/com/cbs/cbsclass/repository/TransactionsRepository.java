@@ -20,9 +20,6 @@ public interface TransactionsRepository extends JpaRepository<Transaction,Intege
     @Query("SELECT t FROM transaction t WHERE tx_at <= ?1 and tx_from = ?2 order by tx_at desc limit 1")
     List<Transaction> findByDate(@Param("currDate") LocalDateTime currDate, @Param("tx_accno") long accno);
 
-     /*@Query("SELECT t FROM transaction WHERE tx_from = :accno and interestamount is not null and tx_at between :startDate and :endDate")
-    List<Transaction> findIfInterestCredited(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("accno") long accno);*/
-
     @Query("SELECT t FROM transaction t WHERE t.tx_from = ?1 AND t.interestamount IS NOT NULL AND t.tx_at BETWEEN ?2 AND ?3")
     List<Transaction> findIfInterestCredited(@Param("txFrom") long txFrom, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }
