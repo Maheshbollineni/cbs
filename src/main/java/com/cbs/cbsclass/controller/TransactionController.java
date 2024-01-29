@@ -1,5 +1,6 @@
 package com.cbs.cbsclass.controller;
 
+import com.cbs.cbsclass.dao.Account;
 import com.cbs.cbsclass.dao.Transaction;
 import com.cbs.cbsclass.dao.TransferBody;
 import com.cbs.cbsclass.service.TransactionService;
@@ -16,9 +17,10 @@ public class TransactionController {
     @Autowired
     TransactionService ts;
 
-    @GetMapping("/statement")
-    public List<Transaction> getHistory(@RequestParam long accountno) {
-        return ts.getHistory(accountno);
+    @PostMapping("/statement")
+    public List<Transaction> getHistory(@RequestBody Account acc) {
+        System.out.println("in /statement :" + acc.getAccountno());
+        return ts.getHistory(acc.getAccountno());
     }
 
     @PostMapping("/transfer")
