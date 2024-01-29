@@ -28,13 +28,12 @@ public class TransactionService {
         return tr.findByAccountno(accountno);
     }
 
-//    public List<Transaction> getStatement(int month){
-//        LocalDate curr = LocalDate.now();
-//        LocalDate startDate =   LocalDate.of(curr.getYear(),month,1);
-//        int lastDate = YearMonth.of(curr.getYear(),month).lengthOfMonth();
-//        LocalDate endDate = LocalDate.of(curr.getYear(),month,lastDate);
-//        return tr.findTransactionRangeDate(startDate,endDate);
-//    }
+    public List<Transaction> getStatement(int month,long accountno){
+
+        LocalDateTime ld = LocalDateTime.now();
+        int year=ld.getYear();
+        return tr.findTransactionRangeDate(accountno,month,year);
+    }
     public Transaction sendMoney(long accountno_r,long accountno_s,float amount) {
         Account rec = ar.findByAccountno(accountno_r);
         Account sd = ar.findByAccountno(accountno_s);

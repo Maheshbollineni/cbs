@@ -27,8 +27,8 @@ public class TransactionController {
         return ts.sendMoney(tbody.getSender_accountno(), tbody.getReceiver_accountno(), tbody.getAmount());
     }
 
-//    @GetMapping("/monthly")
-//    public List<Transaction> getStatement(@RequestParam int month){
-//        return ts.getStatement(month);
-//    }
+    @GetMapping("/monthly")
+    public List<Transaction> getStatement(@RequestParam int month,@RequestParam int accountno){
+        return ts.getStatement(month,accountno);
+    }
 }
