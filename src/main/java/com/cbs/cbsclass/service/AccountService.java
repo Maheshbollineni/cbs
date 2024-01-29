@@ -33,8 +33,10 @@ AccountRepo repo;
             return ac.getBalance();
         }
         public String delete(long accno){
-            Account ac=repo.findByAccountno(repo.findByAccountno(accno).getId());
-            ias.calcInterestForAccountClosure(ac);
+            System.out.println("******** Delete Request for accno: "+accno);
+//            Account ac=repo.findByAccountno(repo.findByAccountno(accno).getId());
+            Account ac=repo.findByAccountno(accno);
+//            ias.calcInterestForAccountClosure(ac);
             ac.setIsActive(false);
             repo.save(ac);
             return "Account closed";
