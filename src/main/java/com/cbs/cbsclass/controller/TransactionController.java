@@ -33,9 +33,9 @@ public class TransactionController {
     }
 
     @PostMapping("/transfer")
-    public Transaction sendMoney(@RequestBody TransferBody tbody) {
+    public String sendMoney(@RequestBody TransferBody tbody) {
         System.out.printf("sender: %s   \nreceiver: %s \n", tbody.getSender_accountno(), tbody.getReceiver_accountno());
-        return ts.sendMoney(tbody.getSender_accountno(), tbody.getReceiver_accountno(), tbody.getAmount());
+        return new Gson().toJson(ts.sendMoney(tbody.getSender_accountno(), tbody.getReceiver_accountno(), tbody.getAmount()));
     }
 
     @GetMapping("/monthly")

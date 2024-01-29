@@ -34,7 +34,7 @@ public class TransactionService {
         int year=ld.getYear();
         return tr.findTransactionRangeDate(accountno,month,year);
     }
-    public Transaction sendMoney(long accountno_r,long accountno_s,float amount) {
+    public String sendMoney(long accountno_r,long accountno_s,float amount) {
         Account rec = ar.findByAccountno(accountno_r);
         Account sd = ar.findByAccountno(accountno_s);
         Transaction ntr = new Transaction();
@@ -56,17 +56,19 @@ public class TransactionService {
             else if(rec == null) ntr.setTx_status("Incorrect Accno");
             else if(!rec.isActive()) ntr.setTx_status("Receiver fail");
             else if(sd.getBalance() < amount) ntr.setTx_status("Insufficent Bal");
-            return add(ntr);
+
 
         }
-
-        sd.setBalance(sd.getBalance() - amount);
-        rec.setBalance(rec.getBalance() + amount);
-        ar.save(sd);
-        ar.save(rec);
-        ntr.setBalance(sd.getBalance());
-        ntr.setTx_status("Success");
-        return add(ntr);
+        else {
+            sd.setBalance(sd.getBalance() - amount);
+            rec.setBalance(rec.getBalance() + amount);
+            ar.save(sd);
+            ar.save(rec);
+            ntr.setBalance(sd.getBalance());
+            ntr.setTx_status("Success");
+            add(ntr);
+        }
+        return "Transaction Status: "+ntr.getTx_status()+" transaction reference id"+ ntr.getTx_ref_no();
 
     }
 }
