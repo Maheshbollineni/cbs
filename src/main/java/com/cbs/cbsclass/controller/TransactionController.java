@@ -4,6 +4,7 @@ import com.cbs.cbsclass.dao.Account;
 import com.cbs.cbsclass.dao.Transaction;
 import com.cbs.cbsclass.dao.TransferBody;
 import com.cbs.cbsclass.service.TransactionService;
+import com.cbs.cbsclass.service.InterestCalculationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ import static java.lang.Integer.parseInt;
 public class TransactionController {
     @Autowired
     TransactionService ts;
+
+    @Autowired
+    InterestCalculationService is;
 
     @PostMapping("/statement")
     public List<Transaction> getHistory(@RequestBody Account acc) {
@@ -40,5 +44,11 @@ public class TransactionController {
         List<Transaction> listTransactions = ts.getStatement(mn,acn);
         System.out.println(listTransactions.toString());
         return new ResponseEntity<>(listTransactions, HttpStatus.OK);
+    }
+
+    @PostMapping("/calcinterest")
+    public String calcinterest(){
+        is.runInterestOnAllAccounts();
+        return "Quaterly Interest has been added Successfully";
     }
 }
