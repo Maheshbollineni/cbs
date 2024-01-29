@@ -45,6 +45,6 @@ public class Transaction {
     private String tx_status;
 
     @Column
-    private float interestamount;
+    private Float interestamount;
 
     }
