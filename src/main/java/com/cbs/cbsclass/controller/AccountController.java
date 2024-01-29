@@ -57,8 +57,10 @@ public class AccountController {
         List<Account>as=service.getAc(c.getCustid());
         List<Long> al=new ArrayList<>();
 
-        for(Account a:as){
-            al.add(a.getAccountno());
+        for(Account a:as)
+        {
+            if(a.isActive())
+                al.add(a.getAccountno());
         }
         System.out.println("Accounts al: "+ al);
         return new Gson().toJson(al);}

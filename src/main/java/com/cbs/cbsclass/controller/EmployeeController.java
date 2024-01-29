@@ -1,12 +1,16 @@
 package com.cbs.cbsclass.controller;
 import com.cbs.cbsclass.dao.Customer;
 import com.cbs.cbsclass.dao.Employee;
+import com.cbs.cbsclass.dao.Account;
 import com.cbs.cbsclass.service.AccountService;
 import com.cbs.cbsclass.service.EmployeeService;
 import com.cbs.cbsclass.service.UserService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -46,9 +50,16 @@ public class EmployeeController {
             service.delete(empid);
         }
 
-        @PutMapping("/performTransaction")
-        public  Transactions debitorcredit(){
-            return new Transactions();
+        @GetMapping("/getAll")
+        public List<Long> getAll(){
+            List<Account>al=service.getAll();
+            List<Long>as=new ArrayList<>();
+            for(Account a:al){
+                if(a.isActive()){
+                    as.add(a.getAccountno());
+                }
+            }
+            return as;
         }
     }
 

@@ -5,6 +5,7 @@ import com.cbs.cbsclass.dao.Transaction;
 import com.cbs.cbsclass.dao.TransferBody;
 import com.cbs.cbsclass.service.TransactionService;
 import com.cbs.cbsclass.service.InterestCalculationService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +50,6 @@ public class TransactionController {
     @PostMapping("/calcinterest")
     public String calcinterest(){
         is.runInterestOnAllAccounts();
-        return "Quaterly Interest has been added Successfully";
+        return new Gson().toJson( "Quaterly Interest has been added Successfully");
     }
 }

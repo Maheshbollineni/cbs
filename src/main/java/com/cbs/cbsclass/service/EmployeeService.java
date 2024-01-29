@@ -1,7 +1,9 @@
 package com.cbs.cbsclass.service;
 
+import com.cbs.cbsclass.dao.Account;
 import com.cbs.cbsclass.dao.Customer;
 import com.cbs.cbsclass.dao.Employee;
+import com.cbs.cbsclass.repository.AccountRepo;
 import com.cbs.cbsclass.repository.CustomerRepo;
 import com.cbs.cbsclass.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,15 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class EmployeeService {
     @Autowired
     EmployeeRepo repo;
+
+    @Autowired
+    AccountRepo acrep;
 
     public Employee register(Employee e){
         System.out.println("entered register method "+e.getEmpid());
@@ -40,5 +46,8 @@ public class EmployeeService {
         repo.deleteById(e.getId());
     }
 
+    public List<Account> getAll(){
+        return acrep.findAll();
+    }
 
 }
