@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -44,8 +45,10 @@ AccountRepo repo;
             Account ac=repo.findByAccountno(accno);
 //            ias.calcInterestForAccountClosure(ac);
             ac.setIsActive(false);
+            ac.setClosedat(LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
+            ac.setClosedby("System");
             repo.save(ac);
-            return "Account closed";
+            return "Account Closed";
         }
 
         public void setTransaction(boolean credit,Account ac,float amt){
