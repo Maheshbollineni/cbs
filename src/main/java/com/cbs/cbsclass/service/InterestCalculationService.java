@@ -57,6 +57,11 @@ public class InterestCalculationService {
             }
             quarterStartDate = quarterStartDate.plusDays(1);
         }
+        if(principle_sum==0){
+            if(acc.getBalance()>300){
+                principle_sum += acc.getBalance();
+            }
+        }
         float interestAmount = (principle_sum * 2) / (4*100);
         System.out.println("********** Interest Caluculated for accountno: "+acc.getAccountno());
 
@@ -67,7 +72,7 @@ public class InterestCalculationService {
         transaction.setAccountno(acc.getAccountno());
         transaction.setType("QI");
         transaction.setAmount(interestAmount);
-        transaction.setBalance(latestBalance+interestAmount);
+        transaction.setBalance(acc.getBalance()+interestAmount);
         transaction.setTx_at(LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
         transaction.setTx_from(0L);
         transaction.setTx_to(acc.getAccountno());
