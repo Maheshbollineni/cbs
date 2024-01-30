@@ -40,13 +40,13 @@ public class AccountController {
         return new Gson().toJson(service.delete(accno));
     }
 
-    @PatchMapping("/deposit")
+    @PostMapping("/deposit")
     public String deposit(@RequestBody Transactions tx)
     {
         return new Gson().toJson(service.deposit(tx.getAccno(), (float) tx.getAmt()));
     }
 
-    @PatchMapping("/withdraw")
+    @PostMapping("/withdraw")
     public String withdraw(@RequestBody Transactions tx){
         return new Gson().toJson(service.withdraw(tx.getAccno(), (float) tx.getAmt()));
     }
