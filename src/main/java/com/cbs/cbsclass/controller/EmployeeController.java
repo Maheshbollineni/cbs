@@ -40,9 +40,9 @@ public class EmployeeController {
         public String login(@RequestBody Employee emp){
             boolean bool = service.authenticate(emp);
             if(bool){
-                return new Gson().toJson("Login Successful");
+                return new Gson().toJson(true);
             }
-            return new Gson().toJson("Error!Check your customer id and password");
+            return new Gson().toJson(false);
         }
 
         @DeleteMapping("/empdlete")
