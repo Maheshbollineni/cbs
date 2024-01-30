@@ -28,9 +28,9 @@ public class UserController {
     public String login(@RequestBody Customer c){
         boolean b= service.authenticate(c);
         if(b){
-            return new Gson().toJson("Login Successful");
+            return new Gson().toJson(true);
         }
-        return new Gson().toJson("Error!Check your customer id and password");
+        return new Gson().toJson(false);
     }
 
     @DeleteMapping("/delete")

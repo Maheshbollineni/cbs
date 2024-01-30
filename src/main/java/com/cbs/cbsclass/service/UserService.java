@@ -29,8 +29,11 @@ public class UserService {
 
     public boolean authenticate(Customer c){
         Customer c1=customerRepo.findByCustid(c.getCustid());
-        if(c1!=null&&c1.getPassword().equals(c.getPassword()))
-                return true;
+        System.out.println("****** input custid: "+c.getCustid()+" input password: "+c.getPassword());
+        System.out.println("****** db custid: "+c1.getCustid()+" input password: "+c1.getPassword());
+        System.out.println("**** are equal: "+ c1.getPassword().equals(c.getPassword()));
+        System.out.println("**** condition value:  " + c1!=null&&c1.getPassword().equals(c.getPassword()));
+        if(c1!=null&&c1.getPassword().equals(c.getPassword())) return true;
         return false;
     }
 

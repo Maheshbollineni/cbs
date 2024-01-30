@@ -45,23 +45,35 @@ public class TransactionService {
             else if(sd.getBalance() < amount) return "Insufficent Balance in your account";
         }
         Transaction ntr = new Transaction();
+        Transaction ntr_r = new Transaction();
         sd.setBalance(sd.getBalance() - amount);
         rec.setBalance(rec.getBalance() + amount);
         ntr.setTx_status("Success");
+        ntr_r.setTx_status("Success");
         String transactionRefNo = UUID.randomUUID().toString().substring(0,10);
         LocalDateTime now = LocalDateTime.now();
-        ntr.setType("Transfer");
+        ntr.setType("Debit");
+        ntr_r.setType("Credit");
         ntr.setTx_at(now);
+        ntr_r.setTx_at(now);
         ntr.setTx_mode("Branch");
+        ntr_r.setTx_mode("Branch");
         ntr.setTx_ref_no(transactionRefNo);
+        ntr_r.setTx_ref_no(transactionRefNo);
         ntr.setAccountno(accountno_s);
+        ntr_r.setAccountno(accountno_r);
         ntr.setAmount(amount);
+        ntr_r.setAmount(amount);
         ntr.setTx_from(accountno_s);
+        ntr_r.setTx_from(accountno_s);
         ntr.setTx_to(accountno_r);
+        ntr_r.setTx_to(accountno_r);
         ar.save(sd);
         ar.save(rec);
         ntr.setBalance(sd.getBalance());
+        ntr_r.setBalance(rec.getBalance());
         add(ntr);
+        add(ntr_r);
         return "Transaction Status: "+ntr.getTx_status()+" transaction reference id"+ ntr.getTx_ref_no();
     }
 }

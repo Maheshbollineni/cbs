@@ -22,15 +22,15 @@ public class InterestCalculationService {
     private TransactionsRepository transRepo;
 
     public void runInterestOnAllAccounts(){
-        System.out.println("********* Received request to start Interest Calculation **********");
+        System.out.println("Received request to start Interest Calculation **********");
         List<Account> allAccounts = (List<Account>) accRepo.findAll();
         System.out.println("Found Total number of Accounts count: "+allAccounts.size());
-        System.out.println("******* Fetching All Accounts from DataBase ********");
+        System.out.println("Fetching All Accounts from DataBase ********");
         for(Account acc: allAccounts){
-            System.out.println("@@@@@@ Started Interest calculation for accno: "+acc.getAccountno());
+            System.out.println("Started Interest calculation for accno: "+acc.getAccountno());
             if(acc.isActive()) calcInterest(acc);
         }
-        System.out.println("******* Interest Calculation Process is Completed! *********");
+        System.out.println("Interest Calculation Process is Completed! *********");
     }
 
     public void calcInterest(Account acc) {
@@ -38,14 +38,14 @@ public class InterestCalculationService {
         LocalDateTime currentDate = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
         LocalDateTime quarterStartDate = currentDate.minusMonths(3);
         List<Transaction> txRecords = transRepo.findIfInterestCredited(acc.getAccountno(),quarterStartDate,currentDate);
-        System.out.println("######## Found tx record count: "+txRecords.size());
+        System.out.println("Found tx record count: "+txRecords.size());
         System.out.println((!acc.isActive())  || (txRecords != null & !txRecords.isEmpty()));
         if((!acc.isActive())  || (txRecords != null & !txRecords.isEmpty())) return;
-        System.out.println("######## Started Interest calculation for accno: "+acc.getAccountno());
+        System.out.println("Started Interest calculation for accno: "+acc.getAccountno());
         float latestBalance = 0;
         System.out.println("date equals: "+quarterStartDate.plusDays(90).equals(currentDate));
         while(!quarterStartDate.equals(currentDate)){
-            System.out.println("######### quarterStartDate: "+ quarterStartDate);
+            System.out.println("quarterStartDate: "+ quarterStartDate);
             List<Transaction> allTransactions = transRepo.findByDate(quarterStartDate,acc.getAccountno());
             if(!allTransactions.isEmpty()){
                 for(Transaction tx: allTransactions){
@@ -57,8 +57,13 @@ public class InterestCalculationService {
             }
             quarterStartDate = quarterStartDate.plusDays(1);
         }
+        if(principle_sum==0){
+            if(acc.getBalance()>300){
+                principle_sum += acc.getBalance();
+            }
+        }
         float interestAmount = (principle_sum * 2) / (4*100);
-        System.out.println("********** Interest Caluculated for accountno: "+acc.getAccountno());
+        System.out.println("Interest Caluculated for accountno: "+acc.getAccountno());
 
         // Transaction table record entry
         Transaction transaction = new Transaction();
@@ -67,7 +72,7 @@ public class InterestCalculationService {
         transaction.setAccountno(acc.getAccountno());
         transaction.setType("QI");
         transaction.setAmount(interestAmount);
-        transaction.setBalance(latestBalance+interestAmount);
+        transaction.setBalance(acc.getBalance()+interestAmount);
         transaction.setTx_at(LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
         transaction.setTx_from(0L);
         transaction.setTx_to(acc.getAccountno());
@@ -80,6 +85,6 @@ public class InterestCalculationService {
         acc.setLast_tx_date(LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
         accRepo.save(acc);
 
-        System.out.println("######### Completed Interest calculation for accno: "+acc.getAccountno());
+        System.out.println("Completed Interest calculation for accno: "+acc.getAccountno());
     }
 }
